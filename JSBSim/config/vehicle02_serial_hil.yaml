@@ -1,0 +1,59 @@
+vehicle:
+  sysid: 2
+  mesh_node: aircraft-02
+  model: c172x
+
+spawn:
+  latitude_deg: -34.98106
+  longitude_deg: 117.85310
+  altitude_msl_m: 41.315
+  terrain_elevation_m: 40.0
+  heading_deg: 0.0
+  airspeed_mps: 0.0
+
+simulation:
+  rate_hz: 400
+  status_hz: 5
+  realtime: true
+
+# 每架飞机必须使用不同的控制 API 端口。
+control_api:
+  enabled: true
+  host: 127.0.0.1
+  port: 8766
+
+environment:
+  steady_wind:
+    enabled: false
+    speed_mps: 0.0
+    direction_from_deg: 0.0
+    vertical_mps: 0.0
+  turbulence:
+    enabled: false
+    preset: light
+    severity: 3
+    windspeed_at_20ft_mps: 7.62
+    random_seed: 12346
+  gust:
+    magnitude_mps: 0.0
+    direction_from_deg: 0.0
+    vertical_mps: 0.0
+    ramp_in_s: 1.0
+    hold_s: 1.0
+    ramp_out_s: 1.0
+
+fault_injection:
+  enabled: true
+  max_channels: 8
+  random_seed: 24681
+
+mavlink:
+  enabled: false
+
+serial_hil:
+  enabled: true
+  # 第二块 USB 转 TTL；与同一套飞控 HIL 固件保持相同波特率。
+  device: COM35
+  baud: 921600
+  sensor_rate_hz: 100
+  gps_rate_hz: 10

@@ -1,0 +1,21 @@
+fleet:
+  # 多机总控 API；不能与任意单机 control_api.port 重复。
+  host: 127.0.0.1
+  port: 8750
+  status_hz: 2
+  shutdown_timeout_s: 5
+
+# config 路径相对于本文件。每架机可独立选择串口或原始 JBS UDP，允许混合运行。
+vehicles:
+  - name: 1号串口飞机
+    config: vehicle01_serial_hil.yaml
+    enabled: true
+
+  - name: 2号串口飞机
+    config: vehicle02_serial_hil.yaml
+    enabled: true
+
+  - name: 3号JBS-UDP飞机
+    config: vehicle03_udp_hil.yaml
+    # 两机硬件在环测试时不启动 UDP 示例机。
+    enabled: false

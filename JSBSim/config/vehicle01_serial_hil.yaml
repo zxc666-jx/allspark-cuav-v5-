@@ -1,0 +1,71 @@
+vehicle:
+  sysid: 1
+  mesh_node: aircraft-01
+  model: c172x
+
+spawn:
+  latitude_deg: -34.98106
+  longitude_deg: 117.85201
+  altitude_msl_m: 41.315
+  terrain_elevation_m: 40.0
+  heading_deg: 0.0
+  airspeed_mps: 0.0
+
+simulation:
+  rate_hz: 400
+  status_hz: 5
+  realtime: true
+
+# Mission Planner 只访问这个本机回环 HTTP 地址，不会打开 COM6，
+# 因而飞控硬件在环串口仍然保持专用。
+control_api:
+  enabled: true
+  host: 127.0.0.1
+  port: 8765
+
+# 环境参数的启动默认值。Mission Planner 运行期间的修改不会写回本文件。
+environment:
+  steady_wind:
+    enabled: false
+    speed_mps: 0.0
+    # 使用气象风向约定：0 表示北风，90 表示东风。
+    direction_from_deg: 0.0
+    # 正数表示向上的气流。
+    vertical_mps: 0.0
+
+  turbulence:
+    enabled: false
+    preset: light
+    severity: 3
+    windspeed_at_20ft_mps: 7.62
+    random_seed: 12345
+
+  gust:
+    magnitude_mps: 0.0
+    direction_from_deg: 0.0
+    vertical_mps: 0.0
+    ramp_in_s: 1.0
+    hold_s: 1.0
+    ramp_out_s: 1.0
+
+# 故障通过本机控制 API 动态建立；这里只设置总开关、通道数量和可复现种子。
+# 界面操作不会自动覆盖本 YAML。
+fault_injection:
+  enabled: true
+  max_channels: 8
+  random_seed: 24680
+
+# 本配置关闭 MAVLink 发送，因为 USB 转 TTL 使用专用 JBS1/JBO1 协议。
+mavlink:
+  enabled: false
+
+serial_hil:
+  enabled: true
+  # 填写 Windows 分配给 USB 转 TTL 模块的 COM 口。
+  device: COM31
+  # 当前实验电台使用 115200；若提高传感器频率并出现丢帧，应改用更高波特率或 UDP。
+  baud: 115200
+  # JBS1 传感器/IMU 数据保持 100 Hz；GNSS 更新频率必须处于
+  # ArduPilot AP_GPS 支持的 5～20 Hz 范围内。
+  sensor_rate_hz: 100
+  gps_rate_hz: 10

@@ -1,0 +1,11 @@
+# 不占用任何 COM 口的原始 JBS1/JBO1 UDP 冒烟测试配置。
+fleet:
+  host: 127.0.0.1
+  port: 8750
+  status_hz: 2
+  shutdown_timeout_s: 5
+
+vehicles:
+  - name: JBS-UDP测试飞机
+    config: vehicle03_udp_hil.yaml
+    enabled: true

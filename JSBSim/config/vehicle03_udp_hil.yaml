@@ -1,0 +1,64 @@
+vehicle:
+  sysid: 3
+  mesh_node: aircraft-03
+  model: c172x
+
+spawn:
+  latitude_deg: -34.98200
+  longitude_deg: 117.85255
+  altitude_msl_m: 41.315
+  terrain_elevation_m: 40.0
+  heading_deg: 0.0
+  airspeed_mps: 0.0
+
+simulation:
+  rate_hz: 400
+  status_hz: 5
+  realtime: true
+
+control_api:
+  enabled: true
+  host: 127.0.0.1
+  port: 8767
+
+environment:
+  steady_wind:
+    enabled: false
+    speed_mps: 0.0
+    direction_from_deg: 0.0
+    vertical_mps: 0.0
+  turbulence:
+    enabled: false
+    preset: light
+    severity: 3
+    windspeed_at_20ft_mps: 7.62
+    random_seed: 12347
+  gust:
+    magnitude_mps: 0.0
+    direction_from_deg: 0.0
+    vertical_mps: 0.0
+    ramp_in_s: 1.0
+    hold_s: 1.0
+    ramp_out_s: 1.0
+
+fault_injection:
+  enabled: true
+  max_channels: 8
+  random_seed: 24682
+
+serial_hil:
+  enabled: false
+
+mavlink:
+  enabled: false
+
+# 原始 JBS1/JBO1 UDP 单播。机载 LQ-Mesh 将 UDP 与飞控 UART 双向转换；
+# Mission Planner/仿真电脑监听 14603，并把 JBS1 发往 3 号机 LQ。
+udp_hil:
+  enabled: true
+  bind_host: 0.0.0.0
+  bind_port: 14603
+  remote_host: 192.168.1.203
+  remote_port: 14603
+  sensor_rate_hz: 100
+  gps_rate_hz: 10
